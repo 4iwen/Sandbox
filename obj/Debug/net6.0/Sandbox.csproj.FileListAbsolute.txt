@@ -1,0 +1,15 @@
+C:\Users\42077\OneDrive\Plocha\Sandbox-master\bin\Debug\net6.0\Sandbox.exe
+C:\Users\42077\OneDrive\Plocha\Sandbox-master\bin\Debug\net6.0\Sandbox.deps.json
+C:\Users\42077\OneDrive\Plocha\Sandbox-master\bin\Debug\net6.0\Sandbox.runtimeconfig.json
+C:\Users\42077\OneDrive\Plocha\Sandbox-master\bin\Debug\net6.0\Sandbox.dll
+C:\Users\42077\OneDrive\Plocha\Sandbox-master\bin\Debug\net6.0\ref\Sandbox.dll
+C:\Users\42077\OneDrive\Plocha\Sandbox-master\bin\Debug\net6.0\Sandbox.pdb
+C:\Users\42077\OneDrive\Plocha\Sandbox-master\obj\Debug\net6.0\Sandbox.csproj.AssemblyReference.cache
+C:\Users\42077\OneDrive\Plocha\Sandbox-master\obj\Debug\net6.0\Sandbox.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\42077\OneDrive\Plocha\Sandbox-master\obj\Debug\net6.0\Sandbox.AssemblyInfoInputs.cache
+C:\Users\42077\OneDrive\Plocha\Sandbox-master\obj\Debug\net6.0\Sandbox.AssemblyInfo.cs
+C:\Users\42077\OneDrive\Plocha\Sandbox-master\obj\Debug\net6.0\Sandbox.csproj.CoreCompileInputs.cache
+C:\Users\42077\OneDrive\Plocha\Sandbox-master\obj\Debug\net6.0\Sandbox.dll
+C:\Users\42077\OneDrive\Plocha\Sandbox-master\obj\Debug\net6.0\ref\Sandbox.dll
+C:\Users\42077\OneDrive\Plocha\Sandbox-master\obj\Debug\net6.0\Sandbox.pdb
+C:\Users\42077\OneDrive\Plocha\Sandbox-master\obj\Debug\net6.0\Sandbox.genruntimeconfig.cache

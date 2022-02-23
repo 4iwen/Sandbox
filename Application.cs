@@ -6,11 +6,13 @@ namespace Sandbox
     {
         private enum BlockType { Air = 0, Water, Sand, Stone, Fire };
 
-        private BlockType[,] map = new BlockType[20, 20];
+        private BlockType[,] map = new BlockType[50, 50];
 
         private bool _shouldExit = false;
         public IntPtr Window { get; private set; }
         public IntPtr Renderer { get; private set; }
+
+        public int brushSize  = 4;
 
         public Application(IntPtr window, IntPtr renderer)
         {
@@ -23,18 +25,18 @@ namespace Sandbox
             SDL_SetRenderDrawColor(Renderer, 33, 33, 33, 255); //set the clear color 
             SDL_RenderClear(Renderer); //clear the entire window with the set color
 
-            for (int y = 0; y < 20; y++)
+            for (int y = 0; y < map.GetLength(0); y++)
             {
-                for (int x = 0; x < 20; x++)
+                for (int x = 0; x < map.GetLength(1); x++)
                 {
                     SetRenderDrawColor(x, y);
 
                     SDL_Rect rect = new SDL_Rect
                     {
-                        x = (32 * x),
-                        y = (32 * y),
-                        w = 32,
-                        h = 32
+                        x = (map.GetLength(0)/4 * x),
+                        y = (map.GetLength(0)/4 * y),
+                        w = map.GetLength(0) / 4,
+                        h = map.GetLength(0) / 4
                     };
 
                     SDL_RenderFillRect(Renderer, ref rect);
@@ -89,11 +91,35 @@ namespace Sandbox
             {
                 switch (e.type)
                 {
+                    case SDL_EventType.SDL_MOUSEBUTTONDOWN:
+                        Place(e);
+                        break;
                     case SDL_EventType.SDL_QUIT:
                         _shouldExit = true;
                         break;
                 }
             }
+        }
+        public void Place(SDL_Event e)
+        {
+
+            if (e.motion.x / 12 < map.GetLength(0) &&   // Checking if we are clicking on the map itself and not outside of it.
+                e.motion.x > 0 &&                       // Checking if we are clicking on the map itself and not outside of it.
+                e.motion.y / 12 < map.GetLength(1) &&   // Checking if we are clicking on the map itself and not outside of it.     
+                e.motion.y > 0                          // Checking if we are clicking on the map itself and not outside of it.
+                )
+            {
+                for (int x = -brushSize + 1; x < brushSize; x++) // Adding the one makes the brush round itead of a sharp square.
+                {
+                    for (int y = -brushSize + 1; y < brushSize; y++) // Adding the one makes the brush round itead of a sharp square.
+                    {
+                        if(x + y <= brushSize && x + y >= -brushSize && x - y <= brushSize && x - y >= -brushSize) // Makes the round shape.
+                        map[(int)(e.motion.x / 12) + x, (int)(e.motion.y / 12) + y] = BlockType.Sand; // Sets the positions to sand.
+                    }
+                }
+            }
+
+            Render();
         }
 
         private void Cleanup()
