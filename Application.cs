@@ -6,9 +6,10 @@ namespace Sandbox
     {
         private enum BlockType { Air = 0, Water, Sand, Stone, Fire };
 
-        private BlockType[,] map = new BlockType[50, 50];
+        private BlockType[,] map = new BlockType[100, 100];
 
         private bool _shouldExit = false;
+        public int mouseDevision = 10; // Scalling of the blocks, feel free to change ;)
         public IntPtr Window { get; private set; }
         public IntPtr Renderer { get; private set; }
 
@@ -25,6 +26,7 @@ namespace Sandbox
             SDL_SetRenderDrawColor(Renderer, 33, 33, 33, 255); //set the clear color 
             SDL_RenderClear(Renderer); //clear the entire window with the set color
 
+            
             for (int y = 0; y < map.GetLength(0); y++)
             {
                 for (int x = 0; x < map.GetLength(1); x++)
@@ -33,10 +35,10 @@ namespace Sandbox
 
                     SDL_Rect rect = new SDL_Rect
                     {
-                        x = (map.GetLength(0)/4 * x),
-                        y = (map.GetLength(0)/4 * y),
-                        w = map.GetLength(0) / 4,
-                        h = map.GetLength(0) / 4
+                        x = (map.GetLength(0)/ (map.GetLength(0) / mouseDevision) * x), 
+                        y = (map.GetLength(0)/ (map.GetLength(0) / mouseDevision) * y), 
+                        w = map.GetLength(0) / (map.GetLength(0) / mouseDevision),      
+                        h = map.GetLength(0) / (map.GetLength(0) / mouseDevision)       
                     };
 
                     SDL_RenderFillRect(Renderer, ref rect);
@@ -103,9 +105,9 @@ namespace Sandbox
         public void Place(SDL_Event e)
         {
 
-            if (e.motion.x / 12 < map.GetLength(0) &&   // Checking if we are clicking on the map itself and not outside of it.
+            if (e.motion.x / mouseDevision < map.GetLength(0) &&   // Checking if we are clicking on the map itself and not outside of it.
                 e.motion.x > 0 &&                       // Checking if we are clicking on the map itself and not outside of it.
-                e.motion.y / 12 < map.GetLength(1) &&   // Checking if we are clicking on the map itself and not outside of it.     
+                e.motion.y / mouseDevision < map.GetLength(1) &&   // Checking if we are clicking on the map itself and not outside of it.     
                 e.motion.y > 0                          // Checking if we are clicking on the map itself and not outside of it.
                 )
             {
@@ -114,7 +116,11 @@ namespace Sandbox
                     for (int y = -brushSize + 1; y < brushSize; y++) // Adding the one makes the brush round itead of a sharp square.
                     {
                         if(x + y <= brushSize && x + y >= -brushSize && x - y <= brushSize && x - y >= -brushSize) // Makes the round shape.
-                        map[(int)(e.motion.x / 12) + x, (int)(e.motion.y / 12) + y] = BlockType.Sand; // Sets the positions to sand.
+                        {
+                            if(e.motion.x / mouseDevision + x < map.GetLength(0) && e.motion.x / mouseDevision + x > 0 &&
+                               e.motion.y / mouseDevision + y < map.GetLength(1) && e.motion.y / mouseDevision + y > 0 )
+                            map[(int)(e.motion.x / mouseDevision) + x, (int)(e.motion.y / mouseDevision) + y] = BlockType.Sand; // Sets the positions to sand.
+                        }
                     }
                 }
             }
